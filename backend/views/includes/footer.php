@@ -1,6 +1,4 @@
-    <!-- /.content -->
-    </div>
-  <!-- /.content-wrapper -->
+
 
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -14,13 +12,3 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script src="views/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="views/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="views/dist/js/adminlte.min.js"></script>
-</body>
-</html>
