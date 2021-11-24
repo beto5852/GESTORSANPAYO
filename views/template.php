@@ -75,7 +75,9 @@ INICIA EL CUERPO
 
                 <nav class="navbar">
                     <div class="logo nav-logo">
-                        <img src="views/assets/logo.svg" alt="Logo san Payo tour operadora">
+                       <a href=" <?php echo RUTA_FRONTEND; ?> ">
+                       <img src="views/assets/logo.svg" alt="Logo san Payo tour operadora">
+                       </a>
                     </div>
                     <ul class="nav-menu">
                         <li class="nav-item">

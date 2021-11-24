@@ -6,12 +6,13 @@
     const password = document.getElementById('passwordIngreso');
     const btnLogin = document.getElementById('login');
     
-    // invocamos el Event listener
+    // invocamos el la funcion Event listener
     eventListeners();
     
     
     function eventListeners(){
         // Inicio de la aplicación y deshabilitación del submit en el form
+        //El DOMContentLoadedevento se activa cuando el documento HTML inicial se ha cargado y analizado por completo, sin esperar a que las hojas de estilo, las imágenes y los subcuadros terminen de cargarse.
         document.addEventListener("DOMContentLoaded",disableBtn);
     
         // campos del formulario
@@ -25,8 +26,7 @@
     }
     
     
-    function validarCampo(e){
-    
+    function validarCampo(e){    
     
         // validamos la longitud del campo y que no venga vacio
         validarLongitud(this);
