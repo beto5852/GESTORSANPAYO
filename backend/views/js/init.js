@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
   $("#listaArticulos").DataTable({
    
     "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -12,7 +13,14 @@ $(document).ready(function () {
     ]
   });
 
+  // Editor
+  $('#editor').summernote();
+
 });
+
+ 
+
+
 
 // Disable form submissions if there are invalid fields
 (function () {
@@ -39,4 +47,12 @@ $(document).ready(function () {
     },
     false
   );
-})();
+});
+
+
+
+$(document).ready(function() {
+  $("#fecha").datepicker({
+    format:'YYYY-MM-DD HH:mm:ss'
+  });
+});

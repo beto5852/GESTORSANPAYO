@@ -52,6 +52,7 @@ class LoginControllers
               $intentos = 0;
               //creamos variables de sessión
               $_SESSION["validar"] = true;
+              $_SESSION["usuarioId"] = $respuesta["id_usuario"];
               $_SESSION["usuarioNombre"] = $respuesta["nombre_usuario"];
               $_SESSION["usuarioImagen"] = $respuesta["imagen_usuario"];
 

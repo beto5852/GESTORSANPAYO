@@ -19,7 +19,7 @@ class LoginModels
 
         //  var_dump($db);
 
-        $stmt = $db->prepare("SELECT user_name, nombre_usuario, password_usuario, email_usuario, imagen_usuario, intentos FROM  $tabla WHERE user_name = :usuario");
+        $stmt = $db->prepare("SELECT id_usuario, user_name, nombre_usuario, password_usuario, email_usuario, imagen_usuario, intentos FROM  $tabla WHERE user_name = :usuario");
 
         $stmt->bindParam(":usuario",$datosModel["usuario"], PDO::PARAM_STR);
 

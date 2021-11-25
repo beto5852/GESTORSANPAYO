@@ -14,6 +14,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="views/dist/css/adminlte.min.css">
 
+
   <!-- DataTables -->
   <link rel="stylesheet" href="views/plugins/fontawesome-free/css/all.min.css">
   <!-- DataTables -->
@@ -21,6 +22,12 @@
   <link rel="stylesheet" href="views/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="views/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
+     <!-- daterange picker -->
+     <link rel="stylesheet" href="views/plugins/daterangepicker/daterangepicker.css">
+
+  
+  <!-- summernote -->
+  <link rel="stylesheet" href="views/plugins/summernote/summernote-bs4.min.css">
 </head>
 
 
@@ -54,9 +61,18 @@ $mvc->enlacesControllers();
 <script src="views/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="views/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE App -->
+
+   <!-- Editor Summernote -->
+   <script src="views/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- InputMask -->
+<script src="views/plugins/moment/moment.min.js"></script>
+<script src="views/plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="views/plugins/daterangepicker/daterangepicker.js"></script>
 <script src="views/dist/js/adminlte.min.js"></script>
 
 <script src="views/js/init.js"></script>
+
 
 </body>
 
