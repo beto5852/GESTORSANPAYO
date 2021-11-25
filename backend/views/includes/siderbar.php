@@ -1,7 +1,7 @@
  <!-- Main Sidebar Container -->
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link text-center">
+    <a href=" <?php echo RUTA_BACKEND; ?> " class="brand-link text-center">
       <!-- <img src="dist/img/AdminLTELogo.png" alt="San Payo Tour Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
       <span class="brand-text font-weight-light"> <strong>BACKEND SPYT</strong> </span>
     </a>
@@ -25,7 +25,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="dashboard" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -35,7 +35,7 @@
           </li>
           <li class="nav-item">
             <a href="articulos" class="nav-link">
-                <i class="nav-icon fas fa-file-alt"></i>
+                <i class="nav-icon far fa-newspaper"></i>
                 <p>
                   Articulos
                 </p>
@@ -45,15 +45,23 @@
             <a href="#" class="nav-link">
                 <i class="nav-icon far fa-images"></i>
                 <p>
-                  Imagenes
+                  Galeria
                 </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="salir" class="nav-link">
-                <i class="nav-icon far fa-images"></i>
+                <i class="nav-icon far fas fa-sign-out-alt"></i>
                 <p>
                   Salir
+                </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href=" <?php echo RUTA_FRONTEND;?> " class="nav-link" target="__blank">
+                <i class="nav-icon fas fa-external-link-alt"></i>
+                <p>
+                  Sitio WEB
                 </p>
             </a>
           </li>
