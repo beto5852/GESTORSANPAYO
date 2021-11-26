@@ -1,34 +1,41 @@
 <?php
 
+declare(strict_types =0);
 class ArticulosControllers
 {
+
+    
 
     #-------------------------------------------------------------
     #LISTAR ARTICULOS
     #-------------------------------------------------------------
-    public static function leerArticulosControllers()
+    public function leerArticulosControllers()
     {
 
         $respuesta = ArticulosModels::leerArticulosModel("articulo");
 
-        // var_dump($res);
-        $ruta = RUTA_FRONTEND;
+        // var_dump($respuesta);
+        // $ruta = RUTA_FRONTEND;
         // recorremos el arreglo obtenido a traves de la consulta en la BD con el item
-        foreach ($respuesta as $item) {
+
+        return $respuesta;
+
+        /* foreach ($respuesta as $articulo) {
 
             //en el boton de eliminar linkeamos con una peticion get para eliminar a tarves de un action y un id seleccionado
 
             echo '<tr>
-                    <td scope="row">' . $item["id_articulo"] . '</td>
-                    <td>' . $item["titulo_articulo"] . '</td>
-                    <td class="text-center"> <img src="' . $ruta . $item["imagen_articulo"] . '" class="img-fluid" width="150" height="auto" ></td>
-                    <td><a  class="btn btn-warning" href="index.php?action=usuarios&idBorrar=' . $item["estado_articulo"] . '">Desactivar  <i class="nav-icon far fa-check-square"></i></a></td>
+                    <td scope="row">' . $articulo->id_articulo. '</td>
+                    <td>' . $articulo->titulo_articulo. '</td>
+                    <td class="text-center"> <img src="' . $ruta . $articulo->imagen_articulo. '" class="img-fluid" width="150" height="auto" ></td>
+                    <td>' . $articulo->contenido_articulo . '</td>
+
                     <td>
-                        <a  class="btn btn-primary" href="index.php?action=usuarios&idBorrar=' . $item["id_articulo"] . '">Editar <i class="nav-icon far fa-edit"></i></a>
-                        <a  class="btn btn-danger" href="index.php?action=usuarios&idBorrar=' . $item["id_articulo"] . '">Borrar <i class="nav-icon far fa-trash-alt"></i> </a>
+                        <a  class="btn btn-primary" href="index.php?action=usuarios&idBorrar=' . $articulo->id_articulo. '">Editar <i class="nav-icon far fa-edit"></i></a>
+                        <a  class="btn btn-danger" href="index.php?action=usuarios&idBorrar=' . $articulo->id_articulo . '">Borrar <i class="nav-icon far fa-trash-alt"></i> </a>
                     </td>
                 </tr>';
-        }
+        } */
     }
 
 

@@ -11,6 +11,7 @@ class EnlacesModels
            $link == "slider"     ||
            $link == "galerias"   ||
            $link == "articulos"  ||
+           $link == "editarArticulo"  ||
            $link == "categorias" ||
            $link == "perfil"     ||
            $link == "permisos"   ||
@@ -21,6 +22,11 @@ class EnlacesModels
 
         }
         else if($link == "index")
+        {
+            //le enviamos al index
+            $modules = "views/modules/login.php";
+        }
+        else if($link == "editar")
         {
             //le enviamos al index
             $modules = "views/modules/login.php";

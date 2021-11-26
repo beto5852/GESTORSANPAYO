@@ -33,8 +33,6 @@ include "views/includes/content-wrapper.php";
               <button type="button" class="btn btn-primary btn-xl pull-right w-100" data-toggle="modal" data-target="#modal-ingresar-horas">
                 <i class="fa fa-plus"></i> Nuevo Articulo
               </button>
-
-
             </div>
           </div>
         </div>
@@ -46,17 +44,32 @@ include "views/includes/content-wrapper.php";
                 <th>Id</th>
                 <th>Título</th>
                 <th>Imagen</th>
-                <th>Estado</th>
+                <th>Contenido</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-
-              <?php
-              $articulos = new ArticulosControllers;
-              $articulos->leerArticulosControllers();
-
+              <?php 
+                    //Instanciamos la clase para leer los datos
+                    $articulos = new ArticulosControllers();
+                    $resultados = $articulos->leerArticulosControllers();
+              
+                    foreach($resultados as $articulo) : 
               ?>
+              <tr>
+                <td scope="row"> <?php echo $articulo->id_articulo; ?> </td>
+                <td> <?php echo $articulo->titulo_articulo;  ?></td>
+                <td class="text-center"> <img src=" <?php echo RUTA_FRONTEND.'/'. $articulo->imagen_articulo; ?>" class="img-fluid" width="150" height="auto"></td>
+                <td> <?php echo $articulo->contenido_articulo; ?>
+                </td>
+
+                <td>
+                  <a class="btn btn-primary" href="index.php?enlace=editarArticulo&idEditar=<?php echo $articulo->id_articulo; ?>">Editar <i class="nav-icon far fa-edit"></i></a>
+                  <a class="btn btn-danger" href="index.php?enlace=articulos&idBorrar=<?php echo $articulo->id_articulo; ?>">Borrar <i class="nav-icon far fa-trash-alt"></i> </a>
+                </td>
+              </tr>
+              
+              <?php  endforeach; ?>
 
             </tbody>
 
@@ -65,7 +78,7 @@ include "views/includes/content-wrapper.php";
                 <th>Id</th>
                 <th>Título</th>
                 <th>Imagen</th>
-                <th>Estado</th>
+                <th>Contenido</th>
                 <th>Acciones</th>
               </tr>
             </tfoot>
@@ -100,74 +113,69 @@ include "views/includes/content-wrapper.php";
 
         <div id="errores" style="color: red;"></div>
 
-
-
-        <form role="form" method="POST">
-
+       ` <form method="POST">
           <div class="row">
-
-            <div class="col-8">
-              <div class="form-group">
-                <label for="nombre">Tiulo: </label>
-                <input type="text" class="form-control" name="nombreArticulo" id="nombreArticulo">
-              </div>
-            </div>
-
-            <div class="col-4">
-                  <!-- Date -->
-          <div class="form-group">
-            <label>Fecha de publicación:</label>
-            <div class="input-group date" id="fecha" data-target-input="nearest">
-              <input type="text" class="form-control datetimepicker-input" data-target="#fecha" name="fecha" value="<?php echo  $fechaActual = date('Y-m-d '); ?>">
-              <div class="input-group-append" data-target="#fecha" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-              </div>
-            </div>
-          </div>
-          <!-- /.Date-->
-
-            </div>
-
-            <div class="col-md-12">
+            <div class="col-12 col-lg-8">
               <div class="card card-outline card-info">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    Contenido del Articulo
-                  </h3>
+
+                <div class="form-group px-2">
+                  <label for="titulo">Título de la publicación: </label>
+                  <input type="text" class="form-control" name="tituloArticulo" id="tituloArticulo" placeholder="Ingresa aquí el título de la publicación">
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <textarea id="editor">
+
+                <div class="form-group px-2">
+                  <label for="contenido">Título de la publicación: </label>
+                  <textarea id="editor" name="contenido">
                 Ingrese <em>algun</em> <u>texto</u> <strong>aqui</strong>
-              </textarea>
+                   </textarea>
                 </div>
-                <div class="card-footer">
-                  
-                </div>
+
               </div>
             </div>
-            <!-- /.col-->
+            <div class="col-12 col-lg-4">
+              <div class="card card-outline card-info">
+                <!-- Date -->
+                <div class="form-group px-2">
+                  <label>Fecha de publicación:</label>
+                  <div class="input-group date" id="fecha" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#fecha" name="fechaCreacion" value="<?php echo  $fechaActual = date('Y-m-d '); ?>">
+                    <div class="input-group-append" data-target="#fecha" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.Date-->
 
+                <div class="form-group px-2">
+                  <label>Categorias</label>
+                  <select class="form-control select2" style="width: 100%;">
+                    <?php
+                    $categoria = new CategoriasControllers();
+                    $categoria->listarCatergoriasControllers();
+
+                    // var_dump($categoria);
+
+                    ?>
+                  </select>
+                </div>
+
+              </div>
+
+            </div>
           </div>
 
-      
 
-          <div class="clearfix"></div>
+          <div class="box-footer">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success pull-left" data-dismiss="modal"><i class="far fa-window-close"></i> Cerrar</button>
 
+              <button type="submit" name="registrarArticulo" id="registrarArticulo" class="btn btn-primary"><i class="fas fa-cog"></i> Registrar</button>
+            </div>
+            <!-- /.input group -->
 
-
-      </div>
-
-
-      <div class="box-footer">
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success pull-left" data-dismiss="modal"><i class="far fa-window-close"></i> Cerrar</button>
-
-          <button type="submit" name="registrarHoras" id="registrarHoras" class="btn btn-primary"><i class="fas fa-cog"></i> Registrar</button>
-        </div>
-        </form>
-        <!-- /.input group -->
-
+          </div>
+        </form>`
+        <div class="clearfix"></div>
       </div>
 
     </div>
@@ -181,4 +189,4 @@ include "views/includes/content-wrapper.php";
 
 
 
-<?php include "views/includes/footer.php" ?>
+<?php include "views/includes/footer.php"; ?>

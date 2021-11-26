@@ -3,7 +3,14 @@ declare(strict_types = 1);
 require_once "models/conexion.php";
 class ArticulosModels
 {
-  
+    
+    // propiedades
+    public $id_articulo;
+    public $titulo_articulo;
+    public $contenido_articulo;
+    public $imagen_articulo;
+    public $date_create_articulo;
+
     // constructor de la clase articulo
     public function __construct($db)
     {
@@ -11,7 +18,7 @@ class ArticulosModels
     }
 
     #-------------------------------------------------------------
-    #OBTENERE LOS ARTICULOS
+    #LISTAR LOS ARTICULOS
     #-------------------------------------------------------------
 
     public static function leerArticulosModel($tabla): array
@@ -21,12 +28,12 @@ class ArticulosModels
         $db = $dataBase->conectar();
 
         // preparamos la sentencia y le pasamos la consulta sql
-        $stmt = $db->prepare("SELECT id_articulo, titulo_articulo, introduccion_articulo, contenido_articulo, imagen_articulo, orden_articulo, estado_articulo, date_create_articulo FROM $tabla");
+        $stmt = $db->prepare("SELECT id_articulo, titulo_articulo, contenido_articulo, imagen_articulo,  date_create_articulo FROM $tabla");
 
         // ejecutamos la consulta
         $stmt->execute();
 
-        $articulos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $articulos = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         // var_dump($articulos);
 
@@ -38,32 +45,45 @@ class ArticulosModels
         $stmt = null;
     }
 
-    #-------------------------------------------------------------
-    #OBTENERE LOS ARTICULOS
-    #-------------------------------------------------------------
-
-    public static function crearArticulosModel($datosModel,$tabla): object
+    public static function leerUnArticuloModel($idArticulo,$tabla): array
     {
         // Instanciamos la base de datos
         $dataBase = new Conexion();
         $db = $dataBase->conectar();
 
         // preparamos la sentencia y le pasamos la consulta sql
-        $stmt = $db->prepare("INSERT INTO `articulo`(`id_articulo`, `titulo_articulo`, `introduccion_articulo`, `contenido_articulo`, `imagen_articulo`, `orden_articulo`, `estado_articulo`, `date_create_articulo`, `date_update_articulo`, `fk_categoria`, `fk_usuario`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]','[value-11]')");
+        $stmt = $db->prepare("SELECT id_articulo, titulo_articulo, contenido_articulo, imagen_articulo,  date_create_articulo FROM $tabla WHERE id = : idArticulo LIMIT 0,1");
+
+        $stmt->bindParam(":idArticulo",$idArticulo,PDO::PARAM_INT );
 
         // ejecutamos la consulta
         $stmt->execute();
 
-        $articulos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $articulos = $stmt->fetch(PDO::FETCH_OBJ);
 
         // var_dump($articulos);
 
         return $articulos;
 
+
+        //liberamos la consulta
+
         $stmt = null;
-
-
     }
+
+
+
+
+
+
+
+
+
+    #-------------------------------------------------------------
+    #OBTENERE LOS ARTICULOS
+    #-------------------------------------------------------------
+
+   
 
     
 

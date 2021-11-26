@@ -30,14 +30,21 @@
               <p>
                 Dashboard
               </p>
-            </a>
-            
+            </a>            
           </li>
           <li class="nav-item">
             <a href="articulos" class="nav-link">
                 <i class="nav-icon far fa-newspaper"></i>
                 <p>
                   Articulos
+                </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="articulos" class="nav-link">
+                <i class="nav-icon fas fa-tasks"></i>
+                <p>
+                  Categroias
                 </p>
             </a>
           </li>

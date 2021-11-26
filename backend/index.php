@@ -4,6 +4,7 @@
 require_once "models/enlaces.php";
 require_once "models/ingreso.php";
 require_once "models/articulos.php";
+require_once "models/categorias.php";
 // cargamos las clase para agregar plantilla
 require_once "controllers/template.php";
 
@@ -11,6 +12,7 @@ require_once "controllers/template.php";
 require_once "controllers/enlaces.php";
 require_once "controllers/ingreso.php";
 require_once "controllers/articulos.php";
+require_once "controllers/categorias.php";
 
 $plantillaBackend = new TemplateController();
 $plantillaBackend->template();

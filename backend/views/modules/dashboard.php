@@ -86,4 +86,4 @@ include "views/includes/content-wrapper.php";
 
 
 
-<?php include "views/includes/footer.php" ?>
+<?php include "views/includes/footer.php"; ?>
