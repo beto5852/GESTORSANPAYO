@@ -21,8 +21,10 @@ include "views/includes/content-wrapper.php";
           <?php
           $editarArticulo = new ArticulosControllers();
           $respuesta = $editarArticulo->editarArticulosControllers();
-
           $actualizar = new ArticulosControllers();
+
+          // var_dump($respuesta);
+          $actualizar->actualizarArticulosControllers();
           // $actualizar->act
           ?>
         </div>
@@ -32,6 +34,9 @@ include "views/includes/content-wrapper.php";
 <!-- Main content -->
 <div class="content">
   <div class="container-fluid">
+
+  <form method="POST" enctype="multipart/form-data">
+
     <div class="row">      
 
       <!-- left column -->
@@ -39,15 +44,18 @@ include "views/includes/content-wrapper.php";
 
         <div class="card card-outline card-info">
 
+          <input type="hidden" name="idArticulo" value="<?php echo isset($respuesta->id_articulo) ? $respuesta->id_articulo : ""; ?>">
+
           <div class="form-group px-2">
             <label for="titulo">Título de la publicación: </label>
-            <input type="text" value="<?php if(isset( $respuesta->titulo_articulo)) { echo $respuesta->titulo_articulo;} else { echo "";}?>" class="form-control" name="tituloArticulo" id="tituloArticulo">
+            <input type="text" value="<?php echo isset($respuesta->titulo_articulo) ? $respuesta->titulo_articulo : "";  ?>" class="form-control" name="actualizarTituloArticulo" id="tituloArticulo" required>
           </div>
 
           <div class="form-group px-2">
             <label for="contenido">Contenido de la publicación: </label>
-            <textarea id="editor" name="contenido"><?php if(isset( $respuesta->titulo_articulo)) { echo $respuesta->contenido_articulo;} else { echo "";}?>
-                </textarea>
+            <textarea id="editor" name="actualizarcontenido" required>
+              <?php echo isset($respuesta->contenido_articulo) ? $respuesta->contenido_articulo : "";?>
+            </textarea>
           </div>
 
         </div>
@@ -62,7 +70,8 @@ include "views/includes/content-wrapper.php";
           <div class="form-group px-2">
             <label>Fecha de publicación:</label>
             <div class="input-group date" id="fecha" data-target-input="nearest">
-              <input type="text" class="form-control datetimepicker-input" data-target="#fecha" name="fechaCreacion" value="<?php echo $respuesta->date_create_articulo; ?>">
+              <input type="datetime" class="form-control datetimepicker-input" data-target="#fecha" name="actualizarfechaCreacion" value="<?php echo isset($respuesta->date_create_articulo) ? $respuesta->date_create_articulo : "";?>">
+              
               <div class="input-group-append" data-target="#fecha" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
               </div>
@@ -71,11 +80,15 @@ include "views/includes/content-wrapper.php";
           <!-- /.Date-->
 
           <div class="form-group px-2 text-center">
-            <img src="<?php echo RUTA_FRONTEND . '/' . $respuesta->imagen_articulo; ?>" alt="" width="auto" height="200">
+            
+            <img src="<?php echo RUTA_FRONTEND . '/' . $respuesta->imagen_articulo; ?>" alt="" width="auto" height="200"><br>
+            
+              <label  for="imagenArticulo" class="form-label">Imagen</label>
+              <input type="file" class="form-control-file" name="imagenArticulo" id="imagenArticulo" placeholder="Seleccione una imagen">
           </div>
 
           <div class="form-group px-2 text-center">
-            <button type="submit" name="registrarArticulo" id="actualizarArticulo" class="btn btn-primary w-100"><i class="fas fa-cog"></i> Actualizar</button>
+            <button type="submit" name="actualizarArticulo" id="actualizarArticulo" class="btn btn-primary w-100"><i class="fas fa-cog"></i> Actualizar</button>
 
           </div>
         </div>
@@ -85,6 +98,7 @@ include "views/includes/content-wrapper.php";
 
     </div>
     <!-- /.row -->
+    </form>
   </div><!-- /.container-fluid -->
 </div>
 <!-- /.content -->

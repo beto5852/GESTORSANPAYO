@@ -9,7 +9,7 @@ class LoginControllers
   public function loginController()
   {
     //validamos que se envio algo
-    if (isset($_POST["usuarioIngreso"])) {
+    if (isset($_POST["usuarioIngreso"]) && $_POST["usuarioIngreso"] != "") {
 
 
       // validacion al lado del servidor
