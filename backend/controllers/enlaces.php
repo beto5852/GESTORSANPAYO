@@ -10,6 +10,8 @@ class EnlacesControllers
         {
             // la asignamos si existe a una variable
             $link = $_GET["enlace"];
+            // $rutas = explode("/", $link);
+            
         }
         else
         {

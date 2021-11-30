@@ -45,14 +45,50 @@ class ArticulosModels
         $stmt = null;
     }
 
-    public static function leerUnArticuloModel($idArticulo,$tabla): array
+    #-------------------------------------------------------------
+    #CREAR LOS ARTICULOS
+    #-------------------------------------------------------------
+
+    public static function crearArticulosModel($datosModel,$tabla)
+    {
+        // Instanciamos la base de datos
+        $dataBase = new Conexion();
+        $db = $dataBase->conectar();
+
+          // preparamos la sentencia y le pasamos la consulta sql
+          $stmt = $db->prepare("INSERT INTO $tabla (titulo_articulo, contenido_articulo, imagen_articulo, date_create_articulo)  VALUES (:titulo, :contenido, :imagen, :fecha)");
+
+          $stmt->bindParam(":titulo",$datosModel['titulo'],PDO::PARAM_STR );
+          $stmt->bindParam(":contenido",$datosModel['contenido'],PDO::PARAM_STR );
+          $stmt->bindParam(":imagen",$datosModel['imagen'],PDO::PARAM_STR );
+          $stmt->bindParam(":fecha",$datosModel['fecha_publicacion'],PDO::PARAM_STR);
+
+  
+          // ejecutamos la consulta
+        if ($stmt->execute()) {
+            $resp = ["exitoso",$db->lastInsertId()];
+            // var_dump($db->lastInsertId());
+            return $resp;
+        }
+        else{
+            return "error";
+        }
+      
+    }
+
+
+    #-------------------------------------------------------------
+    #EDITAR LOS ARTICULOS
+    #-------------------------------------------------------------
+
+    public static function editarArticuloModel($idArticulo,$tabla)
     {
         // Instanciamos la base de datos
         $dataBase = new Conexion();
         $db = $dataBase->conectar();
 
         // preparamos la sentencia y le pasamos la consulta sql
-        $stmt = $db->prepare("SELECT id_articulo, titulo_articulo, contenido_articulo, imagen_articulo,  date_create_articulo FROM $tabla WHERE id = : idArticulo LIMIT 0,1");
+        $stmt = $db->prepare("SELECT id_articulo, titulo_articulo, contenido_articulo, imagen_articulo, date_create_articulo FROM $tabla WHERE id_articulo = :idArticulo");
 
         $stmt->bindParam(":idArticulo",$idArticulo,PDO::PARAM_INT );
 
@@ -70,20 +106,6 @@ class ArticulosModels
 
         $stmt = null;
     }
-
-
-
-
-
-
-
-
-
-    #-------------------------------------------------------------
-    #OBTENERE LOS ARTICULOS
-    #-------------------------------------------------------------
-
-   
 
     
 

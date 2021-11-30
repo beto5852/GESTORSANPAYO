@@ -1,7 +1,10 @@
 <?php 
 
-define('RUTA_BACKEND','http://app.gestor.com/backend/');
+// define('RUTA_BACKEND','http://app.gestor.com/backend/');
 define('RUTA_FRONTEND','http://app.gestor.com/');
+define('RUTA_BACKEND', '//'.$_SERVER['SERVER_NAME'].'/backend/');
+
+
 define("URL",$_SERVER['HTTP_HOST']);
 define('DB_HOST', 'localhost');
 define('DB_SCHEMA', 'gestor');

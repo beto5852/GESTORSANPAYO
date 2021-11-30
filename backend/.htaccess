@@ -11,6 +11,12 @@ RewriteEngine On
 #Usamos una expresión regular como regla para capturar todo lo que venga despues de la palabra action
 #pasamos una variable $1 a la url que queremos que se reescriba y se remplace
 
-RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteRule ^ index.php [QSA,L]
-RewriteRule ^(\w+)$  index.php?enlace=$1
+#RewriteRule ^(\w+)$  index.php?enlace=$1 [QSA]
+
+#Rewriterule ^(\w+)$  index.php?enlace=$1
+RewriteRule ^([a-zA-Z0-9/]+)$ index.php?enlace=$1 [QSA]
+
+#RewriteRule ^([0-9a-zA-Z-_]+)/([0-9a-zA-Z-_]+)$ index.php?enlace=$1&id=$2 [QSA]
+#RewriteRule ^([0-9a-zA-Z-_]+)$ index.php?enlace=$1 [QSA]

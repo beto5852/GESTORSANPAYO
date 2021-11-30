@@ -12,7 +12,6 @@
             {
               // obtener el nombre del modulo
               $urlArray = explode('/', $_SERVER['REQUEST_URI']);
-
               # code...
               switch ($urlArray[2]) {
                 case 'dashboard':
@@ -21,11 +20,14 @@
                 case 'articulos':
                   echo '<h1 class="m-0"> Articulos </h1>';
                   break;
-                case 'slide':
-                  echo '<h1 class="m-0">' . strtoupper($urlArray[2]) . '</h1>';
+                case 'crearArticulo':
+                  echo '<h1 class="m-0"> Crear Articulo</h1>';
                   break;
+                case 'editarArticulo':
+                    echo '<h1 class="m-0">' . strtoupper($urlArray[2]) . '</h1>';
+                    break;
                 default:
-                  # code...
+                  echo '<h1 class="m-0"> Desfault </h1>';
                   break;
               }
             } else {

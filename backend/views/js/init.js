@@ -1,26 +1,19 @@
 $(document).ready(function () {
-
   $("#listaArticulos").DataTable({
-   
-    "responsive": true, "lengthChange": false, "autoWidth": false,
-    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+    responsive: true,
+    lengthChange: false,
+    autoWidth: false,
+    buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
     language: {
-      url: 'views/js/spanishtable.json'
+      url: "views/js/spanishtable.json",
     },
-    dom: 'Bfrtip',
-    buttons: [
-        'copy', 'excel', 'pdf'
-    ]
+    dom: "Bfrtip",
+    buttons: ["copy", "excel", "pdf"],
   });
 
   // Editor
-  $('#editor').summernote();
-
+  $("#editor").summernote();
 });
-
- 
-
-
 
 // Disable form submissions if there are invalid fields
 (function () {
@@ -49,10 +42,46 @@ $(document).ready(function () {
   );
 });
 
-
-
-$(document).ready(function() {
+$(document).ready(function () {
   $("#fecha").datepicker({
-    format:'YYYY-MM-DD HH:mm:ss'
+    format: "YYYY-MM-DD HH:mm:ss",
   });
+});
+
+Dropzone.autoDiscover = false;
+
+new Dropzone(".dropzone", {
+            url: "controllers/articulos.php",
+            maxFiles: 1,
+            addRemoveLinks: true,
+            // uploadMultiple: true,
+            maxFilesize: 0.5, //max 2mb
+            acceptedFiles: ".jpg,.jpeg,.png", //
+            autoProcessQueue: false,
+            dictDefaultMessage: "Arrastra las imagenes aquí",
+            removedfile: function(file) {
+              file.previewElement.remove();
+              },
+              success: function(file,response){
+                  // console.log(file);
+  
+                  if(file.status == "success"){
+                      $('#content .alert').hide();
+                      $('#content').append('<div class="alert alert-primary alert-dismissible fade show" role="alert">'
+                      + '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                      + '<span aria-hidden="true">&times;</span>'
+                      +'</button>'
+                      +'<strong>Se lograrón subir las imagenes</strong>'
+                      +'</div>');
+                  }
+                  else
+                  {
+                      $('#content').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">'+
+                                          + '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                          + '<span aria-hidden="true">&times;</span>'
+                                          +'</button>'+
+                                          +'<strong>No se lograrón subir las imagenes</strong>'+
+                                          +'</div>'); 
+                  }
+              }
 });

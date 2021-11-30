@@ -4,8 +4,7 @@
 session_start();
 if(isset($_SESSION["validar"]))
 {
-  header("location:dashboard");
-  
+  header("location:dashboard");  
   exit();
 }
 
