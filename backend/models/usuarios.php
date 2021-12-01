@@ -2,43 +2,125 @@
 
 declare(strict_types=1);
 require_once "models/conexion.php";
-class ArticulosModels
+ob_start();
+
+class UsuariosModels
 {
 
-    // propiedades
-    public $id_articulo;
-    public $titulo_articulo;
-    public $contenido_articulo;
-    public $imagen_articulo;
-    public $date_create_articulo;
 
-    // constructor de la clase articulo
-    public function __construct($db)
+    /***************************************************************************
+     * 
+     * METODO PARA BUSCAR EL USUARIO PARA EL LOGIN
+     * 
+     ***************************************************************************/
+    public static function loginModel( array $datosModel, string $tabla): array|bool
     {
-        $this->conectar = $db;
+         // Instanciamos la base de datos
+         $dataBase = new Conexion();
+         $db = $dataBase->conectar();
+
+        //  var_dump($db);
+
+        $stmt = $db->prepare("SELECT id_usuario, user_name, nombre_usuario, password_usuario, email_usuario, imagen_usuario, intentos FROM  $tabla WHERE user_name = :usuario");
+
+        $stmt->bindParam(":usuario",$datosModel["usuario"], PDO::PARAM_STR);
+
+        $stmt->execute();
+        
+        //retornamos un array asociativo o false si no se ejecuta
+        return $stmt->fetch();
+
+        
+        //cerramos las conexiones
+        $stmt= null;
+    }
+    /***************************************************************************
+     * 
+     * METODO PARA ACTUALIZAR LOS INTENTOS FALLIDOS
+     * 
+     ***************************************************************************/
+
+
+    public static function loginIntentos(array $datosModel,string $tabla) :string
+    {
+         // Instanciamos la base de datos
+         $dataBase = new Conexion();
+         $db = $dataBase->conectar();
+
+        $stmt = $db->prepare("UPDATE $tabla SET intentos = :intentos WHERE user_name = :usuario");
+
+        $stmt->bindParam(":intentos",$datosModel["actualizarIntentos"], PDO::PARAM_INT);
+        $stmt->bindParam(":usuario",$datosModel["usuarioActual"], PDO::PARAM_STR);
+
+       
+
+        //retornamos un array asociativo o false si no se ejecuta
+        if ( $stmt->execute()) {
+            
+            return "actualizado";
+        }
+       else{
+           return "error";
+       }
+
+        
+        //cerramos las conexiones
+        $stmt= null;
     }
 
-    #-------------------------------------------------------------
-    #LISTAR LOS ARTICULOS
+     #-------------------------------------------------------------
+    #LISTAR LOS USUARIO
     #-------------------------------------------------------------
 
-    public static function leerArticulosModel($tabla): array
+    public static function listarRolesModel($tabla)
     {
         // Instanciamos la base de datos
         $dataBase = new Conexion();
         $db = $dataBase->conectar();
 
         // preparamos la sentencia y le pasamos la consulta sql
-        $stmt = $db->prepare("SELECT id_articulo, titulo_articulo, contenido_articulo, imagen_articulo,  date_create_articulo FROM $tabla ORDER BY id_articulo DESC");
+        $stmt = $db->prepare("SELECT id_permiso AS id, nombre_permiso AS permiso FROM $tabla");
 
         // ejecutamos la consulta
         $stmt->execute();
 
-        $articulos = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $usuarios = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         // var_dump($articulos);
 
-        return $articulos;
+        return $usuarios;
+
+
+        //liberamos la consulta
+
+        $stmt = null;
+    }
+
+
+    #-------------------------------------------------------------
+    #LISTAR LOS USUARIO
+    #-------------------------------------------------------------
+
+    public static function listarUsuariosModel($tabla)
+    {
+        // Instanciamos la base de datos
+        $dataBase = new Conexion();
+        $db = $dataBase->conectar();
+
+        // preparamos la sentencia y le pasamos la consulta sql
+        $stmt = $db->prepare("SELECT u.id_usuario AS id, u.nombre_usuario AS nombre, u.email_usuario AS email, u.imagen_usuario AS imagen, p.nombre_permiso AS permiso
+        FROM usuario AS u
+        INNER JOIN permiso AS p
+        ON u.permiso_id = p.id_permiso");
+
+        // ejecutamos la consulta
+        $stmt->execute();
+
+        $usuarios = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        // var_dump($articulos);
+
+        return $usuarios;
 
 
         //liberamos la consulta
@@ -80,16 +162,17 @@ class ArticulosModels
     #EDITAR LOS ARTICULOS
     #-------------------------------------------------------------
 
-    public static function editarArticuloModel($idArticulo, $tabla)
+    public static function editarUsuarioModel($idUsuario, $tabla)
     {
         // Instanciamos la base de datos
         $dataBase = new Conexion();
         $db = $dataBase->conectar();
 
         // preparamos la sentencia y le pasamos la consulta sql
-        $stmt = $db->prepare("SELECT id_articulo, titulo_articulo, contenido_articulo, imagen_articulo, date_create_articulo FROM $tabla WHERE id_articulo = :idArticulo");
+        $stmt = $db->prepare("SELECT u.id_usuario AS id,  u.user_name AS nickname, u.nombre_usuario AS nombre, u.apellido_usuario AS apellido, u.email_usuario AS email, u.password_usuario AS password, u.telefono_usuario AS telefono, u.imagen_usuario AS imagen, p.nombre_permiso AS permiso
+        FROM $tabla AS u INNER JOIN permiso AS p ON u.permiso_id = p.id_permiso WHERE u.id_usuario = :idUsuario");
 
-        $stmt->bindParam(":idArticulo", $idArticulo, PDO::PARAM_INT);
+        $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
 
         // ejecutamos la consulta
         $stmt->execute();
@@ -134,9 +217,7 @@ class ArticulosModels
             } else {
                 return "error";
             }
-        }
-        else
-        {
+        } else {
             // preparamos la sentencia y le pasamos la consulta sql
             $stmt = $db->prepare("UPDATE $tabla SET  titulo_articulo = :titulo, contenido_articulo = :contenido, imagen_articulo = :imagen WHERE id_articulo = :idArticulo");
 
@@ -162,7 +243,7 @@ class ArticulosModels
     }
 
 
-     #-------------------------------------------------------------
+    #-------------------------------------------------------------
     #BORRAR LOS ARTICULOS
     #-------------------------------------------------------------
 
@@ -185,5 +266,4 @@ class ArticulosModels
             return "error";
         }
     }
-
 }

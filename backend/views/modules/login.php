@@ -19,7 +19,7 @@ if(isset($_SESSION["validar"]))
 
     <?php 
       // instanciamos la clase de login controller
-      $login = new LoginControllers();
+      $login = new UsuariosControllers();
       $login->loginController();
 
     ?>

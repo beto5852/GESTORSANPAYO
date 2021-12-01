@@ -9,6 +9,7 @@ $(document).ready(function () {
     },
     dom: "Bfrtip",
     buttons: ["copy", "excel", "pdf"],
+    order: [[ 0, "desc" ]]
   });
 
   // Editor

@@ -9,9 +9,8 @@
             <?php
 
             // var_dump(RUTA_BACKEND);
-
-            if (isset($_SERVER['REQUEST_URI'])) 
-            {
+            //obtenemos el enlace
+            if (isset($_SERVER['REQUEST_URI'])) {
               // obtener el nombre del modulo
               $urlArray = explode('/', $_SERVER['REQUEST_URI']);
               # code...
@@ -26,7 +25,16 @@
                   echo '<h1 class="m-0"> Crear Articulo</h1>';
                   break;
                 case 'editarArticulo':
-                    echo '<h1 class="m-0"> Editar Articulo</h1>';
+                  echo '<h1 class="m-0"> Editar Articulo</h1>';
+                  break;
+                case 'usuarios':
+                  echo '<h1 class="m-0"> Lista de Usuarios</h1>';
+                  break;
+                case 'editarUsuario':
+                  echo '<h1 class="m-0"> Editar Usuario</h1>';
+                  break;
+                  case 'borrarArticulo':
+                    echo '<h1 class="m-0"> Lista de Articulos</h1>';
                     break;
                 default:
                   echo '<h1 class="m-0"> Desfault </h1>';

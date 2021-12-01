@@ -68,16 +68,13 @@ $mvc->enlacesControllers();
 <!-- AdminLTE App -->
 
    <!-- Editor Summernote -->
-   <script src="views/plugins/summernote/summernote-bs4.min.js"></script>
+   <script src="<?= RUTA_BACKEND ?>views/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- InputMask -->
 <script src="<?= RUTA_BACKEND ?>views/plugins/moment/moment.min.js"></script>
 <script src="<?= RUTA_BACKEND ?>views/plugins/inputmask/jquery.inputmask.min.js"></script>
 <!-- date-range-picker -->
 <script src="<?= RUTA_BACKEND ?>views/plugins/daterangepicker/daterangepicker.js"></script>
 
-<!-- dropzonejs -->
-<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
 <script src="<?= RUTA_BACKEND ?>views/dist/js/adminlte.min.js"></script>
 

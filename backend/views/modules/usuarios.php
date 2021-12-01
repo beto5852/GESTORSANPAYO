@@ -54,29 +54,33 @@ include "views/includes/content-wrapper.php";
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Título</th>
+                <th>Nombre</th>
+                <th>Email</th>
                 <th>Imagen</th>
-                <th>Contenido</th>
+                <th>Rol</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               <?php
               //Instanciamos la clase para leer los datos
-              $articulos = new ArticulosControllers();
-              $resultados = $articulos->leerArticulosControllers();
-              foreach ($resultados as $articulo) :
+              $usuarios = new UsuariosControllers();
+              $resultados = $usuarios->listarUsuariososControllers();
+            //   var_dump($resultados);
+              foreach ($resultados as $usuario) :
               ?>
                 <tr>
-                  <td scope="row"> <?php echo $articulo->id_articulo; ?> </td>
-                  <td> <?php echo textoCorto($articulo->titulo_articulo,30);  ?></td>
-                  <td class="text-center"> <img src=" <?php echo RUTA_FRONTEND . '/' . $articulo->imagen_articulo; ?>" class="img-fluid" width="150" height="auto"></td>
-                  <td> <?php echo textoCorto($articulo->contenido_articulo,150); ?> </td>
+                  <td scope="row"> <?php echo $usuario->id; ?> </td>
+                  <td> <?php echo $usuario->nombre;  ?></td>
+                  <td> <?php echo $usuario->email; ?>
+                  <td class="text-center"> <img src=" <?php echo RUTA_BACKEND. '/' . $usuario->imagen; ?>" class="img-fluid" width="150" height="auto"></td>
+                  <td> <?php echo $usuario->permiso; ?>
+                  </td>
 
                   <td>
-                    <a class="btn btn-primary" href="<?= RUTA_BACKEND; ?>editarArticulo/<?php echo $articulo->id_articulo; ?>">Editar <i class="nav-icon far fa-edit"></i></a>
+                    <a class="btn btn-primary" href="<?= RUTA_BACKEND?>editarUsuario/<?php echo $usuario->id; ?>">Editar <i class="nav-icon far fa-edit"></i></a>
 
-                    <a class="btn btn-danger" href="<?= RUTA_BACKEND; ?>borrarArticulo/<?php echo $articulo->id_articulo; ?>">Borrar <i class="nav-icon far fa-trash-alt"></i> </a>
+                    <a class="btn btn-danger" href="<?= RUTA_BACKEND?>borrarUsuario/<?php echo $usuario->id; ?>"">Borrar <i class="nav-icon far fa-trash-alt"></i> </a>
                   </td>
                 </tr>
 
@@ -87,9 +91,10 @@ include "views/includes/content-wrapper.php";
             <tfoot>
               <tr>
                 <th>Id</th>
-                <th>Título</th>
+                <th>Nombre</th>
+                <th>Email</th>
                 <th>Imagen</th>
-                <th>Contenido</th>
+                <th>Rol</th>
                 <th>Acciones</th>
               </tr>
             </tfoot>

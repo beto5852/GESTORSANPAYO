@@ -20,7 +20,8 @@ class EnlacesModels
            $rutas[0] == "articulos"  ||
            $rutas[0] == "crearArticulo"  ||
            $rutas[0] == "editarArticulo"  ||
-           $rutas[0] == "categorias" ||
+           $rutas[0] == "usuarios" ||
+           $rutas[0] == "editarUsuario" ||
            $rutas[0] == "perfil"     ||
            $rutas[0] == "permisos"   ||
            $rutas[0] == "salir")
@@ -40,6 +41,11 @@ class EnlacesModels
             $modules = "views/modules/crearArticulo.php";
         }
         else if($rutas[0]  == "borrarArticulo")
+        {
+            //le enviamos al index
+            $modules = "views/modules/articulos.php";
+        }
+        else if($rutas[0]  == "borrarUsuario")
         {
             //le enviamos al index
             $modules = "views/modules/articulos.php";
