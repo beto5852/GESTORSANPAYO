@@ -21,6 +21,20 @@ if(isset($_SESSION["validar"]))
       // instanciamos la clase de login controller
       $login = new UsuariosControllers();
       $login->loginController();
+      
+      if (isset($_GET['enlace']))
+      {
+        $mensaje = explode("/",$_GET['enlace']);
+        
+        if ( isset($mensaje[1]) && $mensaje[1] == "exitoso") {
+          echo ' <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>Usuario Registrado</strong> 
+        </div>';
+        }
+      }
 
     ?>
 
@@ -31,7 +45,7 @@ if(isset($_SESSION["validar"]))
 
   <div class="login-box">
   <div class="login-logo">
-    <img src="views/dist/img/login.png" class="img-fluid" width="200">
+    <img src="<?= RUTA_BACKEND?>views/dist/img/login.png" class="img-fluid" width="200">
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -69,6 +83,12 @@ if(isset($_SESSION["validar"]))
           <!-- /.col -->
         </div>
       </form>  
+      <div class="social-auth-links text-center">
+        <a href="<?= RUTA_BACKEND?>registrar" class="btn btn-block btn-success">
+          <i class="fas fa-share-square mr-2"></i>
+          Registrate
+        </a>
+      </div>
 
     </div>
     <!-- /.login-card-body -->
@@ -76,6 +96,6 @@ if(isset($_SESSION["validar"]))
 </div>
 <!-- /.login-box -->
 
-<script src="views/js/validarIngreso.js"></script>
+<script src="<?=RUTA_BACKEND?>views/js/validarIngreso.js"></script>
 
 

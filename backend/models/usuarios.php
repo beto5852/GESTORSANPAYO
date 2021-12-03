@@ -132,26 +132,24 @@ class UsuariosModels
     #CREAR LOS ARTICULOS
     #-------------------------------------------------------------
 
-    public static function crearArticulosModel($datosModel, $tabla)
+    public static function crearUsuarioModel($datosModel, $tabla)
     {
         // Instanciamos la base de datos
         $dataBase = new Conexion();
         $db = $dataBase->conectar();
 
         // preparamos la sentencia y le pasamos la consulta sql
-        $stmt = $db->prepare("INSERT INTO $tabla (titulo_articulo, contenido_articulo, imagen_articulo, date_create_articulo)  VALUES (:titulo, :contenido, :imagen, :fecha)");
+        $stmt = $db->prepare("INSERT INTO $tabla (user_name, nombre_usuario, email_usuario, password_usuario ) VALUES(:alias, :nombre, :email, :password) ");
 
-        $stmt->bindParam(":titulo", $datosModel['titulo'], PDO::PARAM_STR);
-        $stmt->bindParam(":contenido", $datosModel['contenido'], PDO::PARAM_STR);
-        $stmt->bindParam(":imagen", $datosModel['imagen'], PDO::PARAM_STR);
-        $stmt->bindParam(":fecha", $datosModel['fecha_publicacion'], PDO::PARAM_STR);
+        $stmt->bindParam(":alias", $datosModel['alias'], PDO::PARAM_STR);
+        $stmt->bindParam(":nombre", $datosModel['nombre'], PDO::PARAM_STR);
+        $stmt->bindParam(":email", $datosModel['email'], PDO::PARAM_STR);
+        $stmt->bindParam(":password", $datosModel['password'], PDO::PARAM_STR);
 
 
         // ejecutamos la consulta
         if ($stmt->execute()) {
-            $resp = ["exitoso", $db->lastInsertId()];
-            // var_dump($db->lastInsertId());
-            return $resp;
+            return "exitoso";
         } else {
             return "error";
         }

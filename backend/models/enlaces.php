@@ -13,8 +13,9 @@ class EnlacesModels
         // print_r($rutas)
 
         //verificamos si el link esta en nuestra lista 
-        if($rutas[0] == "dashboard"  ||
-           $rutas[0] == "login"      ||
+        if($rutas[0] == "login"      ||
+           $rutas[0] == "registrar"  ||
+           $rutas[0] == "dashboard"  ||
            $rutas[0] == "slider"     ||
            $rutas[0] == "galerias"   ||
            $rutas[0] == "articulos"  ||
