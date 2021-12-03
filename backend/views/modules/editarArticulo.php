@@ -37,9 +37,7 @@ include "views/includes/content-wrapper.php";
                   <span aria-hidden="true">&times;</span>
               </button>
           </div>';
-      } 
-      elseif (isset($enlace[2]) && $enlace[2] == "error") 
-      {
+      } elseif (isset($enlace[2]) && $enlace[2] == "error") {
         echo '  <div class="alert alert-danger alert-dismissible fade show" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
@@ -66,17 +64,17 @@ include "views/includes/content-wrapper.php";
 
           <div class="card card-outline card-info">
 
-            <input type="hidden" name="idArticulo" value="<?php echo isset($respuesta->id_articulo) ? $respuesta->id_articulo : ""; ?>">
+            <input type="hidden" name="idArticulo" value="<?php echo isset($respuesta->idArticulo) ? $respuesta->idArticulo : ""; ?>">
 
             <div class="form-group px-2">
               <label for="titulo">Título de la publicación: </label>
-              <input type="text" value="<?php echo isset($respuesta->titulo_articulo) ? $respuesta->titulo_articulo : "";  ?>" class="form-control" name="actualizarTituloArticulo" id="tituloArticulo" required>
+              <input type="text" value="<?php echo isset($respuesta->titulo) ? $respuesta->titulo : "";  ?>" class="form-control" name="actualizarTituloArticulo" id="tituloArticulo" required>
             </div>
 
             <div class="form-group px-2">
               <label for="contenido">Contenido de la publicación: </label>
               <textarea id="editor" name="actualizarcontenido" required>
-              <?php echo isset($respuesta->contenido_articulo) ? $respuesta->contenido_articulo : ""; ?>
+              <?php echo isset($respuesta->contenido) ? $respuesta->contenido : ""; ?>
             </textarea>
             </div>
 
@@ -92,7 +90,7 @@ include "views/includes/content-wrapper.php";
             <div class="form-group px-2">
               <label>Fecha de publicación:</label>
               <div class="input-group date" id="fecha" data-target-input="nearest">
-                <input type="date" class="form-control datetimepicker-input" data-target="#fecha" name="actualizarfechaCreacion" value="<?php echo isset($respuesta->date_create_articulo) ? $respuesta->date_create_articulo : ""; ?>">
+                <input type="text" class="form-control datetimepicker-input" data-target="#fecha" name="actualizarfechaCreacion" value="<?php echo isset($respuesta->publicado) ? $respuesta->publicado : ""; ?>">
 
                 <div class="input-group-append" data-target="#fecha" data-toggle="datetimepicker">
                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -101,9 +99,32 @@ include "views/includes/content-wrapper.php";
             </div>
             <!-- /.Date-->
 
+            <div class="form-group px-2">
+              <label for="categoria">Categorias: </label>
+              <select class="form-control" name="actualizarCategoria" required>
+                <?php
+                $mostrarCategorias = new ArticulosControllers();
+                $respuestaCategoria = $mostrarCategorias->listarCategorias();
+
+                // var_dump($respuestaRol);
+
+                foreach ($respuestaCategoria as $categoria) :
+
+                  if ($respuesta->idCategoria == $categoria->id) {
+                ?>
+
+                    <option value="<?=$respuesta->idCategoria?>" selected><?php echo $respuesta->categoria; ?></option>
+                  <?php } else { ?>
+                    <option value="<?= $categoria->id?>"><?php echo $categoria->categoria; ?></option>
+                <?php }
+                endforeach; ?>
+              </select>
+            </div>
+            <!-- agregar la categoria -->
+
             <div class="form-group px-2 text-center">
 
-              <img src="<?php echo RUTA_FRONTEND . '/' . $respuesta->imagen_articulo; ?>" alt="" width="auto" height="200"><br>
+              <img src="<?php echo RUTA_FRONTEND . '/' . $respuesta->imagen; ?>" alt="" width="auto" height="200"><br>
 
               <label for="imagenArticulo" class="form-label">Imagen</label>
               <input type="file" class="form-control-file" name="imagenArticulo" id="imagenArticulo" placeholder="Seleccione una imagen">

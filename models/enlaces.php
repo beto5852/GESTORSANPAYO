@@ -15,7 +15,7 @@ class EnlacesFrontModels
 
         //verificamos si el link esta en nuestra lista 
         if($rutas[0] == "inicio"  ||
-           $rutas[0] == "lugares"  )
+           $rutas[0] == "detalleArticulo"  )
         {
             //le enviamos al modulo en la lista
             $modules = "views/modules/".$rutas[0] .".php";

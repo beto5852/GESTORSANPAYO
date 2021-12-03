@@ -48,16 +48,7 @@ INICIA EL CUERPO
     ?>
 
    
-    <!-- ---------------------------------
-    BOTON IR ARRIBA
-    ---------------------------------- -->
-
-    <a data-scroll href="#header" class="ir-arriba">
-        <i class="fa fa-angle-up" aria-hidden="true">
-        </i>
-    </a>
-    <!-- termina el boton de ir arriba -->
-
+  
 
     <!-- libreria owlcarrusel -->
     <script src="views/js/owl.carousel.min.js"></script>

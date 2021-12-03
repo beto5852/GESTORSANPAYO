@@ -5,20 +5,7 @@ require_once "models/conexion.php";
 class ArticulosModels
 {
 
-    // propiedades
-    public $id_articulo;
-    public $titulo_articulo;
-    public $contenido_articulo;
-    public $imagen_articulo;
-    public $date_create_articulo;
-
-    // constructor de la clase articulo
-    public function __construct($db)
-    {
-        $this->conectar = $db;
-    }
-
-    #-------------------------------------------------------------
+     #-------------------------------------------------------------
     #LISTAR LOS ARTICULOS
     #-------------------------------------------------------------
 
@@ -46,6 +33,35 @@ class ArticulosModels
         $stmt = null;
     }
 
+
+     #-------------------------------------------------------------
+    #LISTAR LOS ARTICULOS
+    #-------------------------------------------------------------
+
+    public static function listarCategoriasModel($tabla): array
+    {
+        // Instanciamos la base de datos
+        $dataBase = new Conexion();
+        $db = $dataBase->conectar();
+
+        // preparamos la sentencia y le pasamos la consulta sql
+        $stmt = $db->prepare("SELECT id_categoria AS id, nombre_categoria AS categoria FROM $tabla");
+
+        // ejecutamos la consulta
+        $stmt->execute();
+
+        $articulos = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        // var_dump($articulos);
+
+        return $articulos;
+
+
+        //liberamos la consulta
+
+        $stmt = null;
+    }
+
     #-------------------------------------------------------------
     #CREAR LOS ARTICULOS
     #-------------------------------------------------------------
@@ -57,8 +73,9 @@ class ArticulosModels
         $db = $dataBase->conectar();
 
         // preparamos la sentencia y le pasamos la consulta sql
-        $stmt = $db->prepare("INSERT INTO $tabla (titulo_articulo, contenido_articulo, imagen_articulo, date_create_articulo)  VALUES (:titulo, :contenido, :imagen, :fecha)");
+        $stmt = $db->prepare("INSERT INTO $tabla (fk_categoria, titulo_articulo, contenido_articulo, imagen_articulo, date_create_articulo)  VALUES (:categoria, :titulo, :contenido, :imagen, :fecha)");
 
+        $stmt->bindParam(":categoria", $datosModel['categoria'], PDO::PARAM_INT);
         $stmt->bindParam(":titulo", $datosModel['titulo'], PDO::PARAM_STR);
         $stmt->bindParam(":contenido", $datosModel['contenido'], PDO::PARAM_STR);
         $stmt->bindParam(":imagen", $datosModel['imagen'], PDO::PARAM_STR);
@@ -87,7 +104,11 @@ class ArticulosModels
         $db = $dataBase->conectar();
 
         // preparamos la sentencia y le pasamos la consulta sql
-        $stmt = $db->prepare("SELECT id_articulo, titulo_articulo, contenido_articulo, imagen_articulo, date_create_articulo FROM $tabla WHERE id_articulo = :idArticulo");
+        $stmt = $db->prepare("SELECT a.id_articulo AS idArticulo, a.fk_categoria AS idCategoria, a.titulo_articulo AS titulo, a.contenido_articulo AS contenido, a.imagen_articulo AS imagen, a.date_create_articulo AS publicado, c.nombre_categoria AS categoria
+        FROM articulo AS a
+        INNER JOIN categoria AS c
+        ON a.fk_categoria = c.id_categoria
+        WHERE a.id_articulo = :idArticulo");
 
         $stmt->bindParam(":idArticulo", $idArticulo, PDO::PARAM_INT);
 
@@ -119,8 +140,9 @@ class ArticulosModels
 
         if ($datosModel["imagen"] == "") {
             // preparamos la sentencia y le pasamos la consulta sql
-            $stmt = $db->prepare("UPDATE $tabla SET  titulo_articulo = :titulo, contenido_articulo = :contenido WHERE id_articulo = :idArticulo");
-
+            $stmt = $db->prepare("UPDATE $tabla SET  fk_categoria = :idCategoria, titulo_articulo = :titulo, contenido_articulo = :contenido WHERE id_articulo = :idArticulo");
+            
+            $stmt->bindParam(":idCategoria", $datosModel["idCategoria"], PDO::PARAM_INT);
             $stmt->bindParam(":titulo", $datosModel["titulo"], PDO::PARAM_STR);
             $stmt->bindParam(":contenido", $datosModel["contenido"], PDO::PARAM_STR);
             $stmt->bindParam(":idArticulo", $datosModel["id"], PDO::PARAM_INT);
@@ -138,8 +160,9 @@ class ArticulosModels
         else
         {
             // preparamos la sentencia y le pasamos la consulta sql
-            $stmt = $db->prepare("UPDATE $tabla SET  titulo_articulo = :titulo, contenido_articulo = :contenido, imagen_articulo = :imagen WHERE id_articulo = :idArticulo");
+            $stmt = $db->prepare("UPDATE $tabla SET  fk_categoria = :idCategoria, titulo_articulo = :titulo, contenido_articulo = :contenido, imagen_articulo = :imagen WHERE id_articulo = :idArticulo");
 
+            $stmt->bindParam(":idCategoria", $datosModel["idCategoria"], PDO::PARAM_INT);
             $stmt->bindParam(":titulo", $datosModel["titulo"], PDO::PARAM_STR);
             $stmt->bindParam(":contenido", $datosModel["contenido"], PDO::PARAM_STR);
             $stmt->bindParam(":imagen", $datosModel["imagen"], PDO::PARAM_STR);

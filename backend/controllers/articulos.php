@@ -19,6 +19,18 @@ class ArticulosControllers
         return $respuesta;
     }
 
+     #-------------------------------------------------------------
+    #LISTAR CATEGORIAS
+    #-------------------------------------------------------------
+    public function listarCategorias()
+    {
+
+        $respuesta = ArticulosModels::listarCategoriasModel("categoria");
+
+        return $respuesta;
+    }
+
+
 
     #-------------------------------------------------------------
     #LISTAR ARTICULOS
@@ -69,6 +81,7 @@ class ArticulosControllers
                 //obtenemos los valores
 
                 $datosController = array(
+                    "categoria" => trim($_POST["categoriaArticulo"]),
                     "titulo" => trim($_POST["tituloArticulo"]),
                     "contenido" => trim($_POST["contenidoArticulo"]),
                     "fecha_publicacion" => trim($_POST["fechaArticulo"])
@@ -129,36 +142,34 @@ class ArticulosControllers
     public static function actualizarArticulosControllers()
     {
 
-
         //validamos que los datos han sido enviados por el boton submit
         if (isset($_POST['actualizarArticulo']) && $_POST['actualizarTituloArticulo'] != '') {
               //Aignar los valores del POST a un arreglo
               $datosController = array(
                 "id" => $_POST["idArticulo"],
+                "idCategoria" => $_POST["actualizarCategoria"],
                 "titulo" => trim( $_POST["actualizarTituloArticulo"]),
                 "contenido" => trim($_POST["actualizarcontenido"])
             );
 
-            
             //validamos que la imagen no este vacia
             if ($_FILES["imagenArticulo"]["error"] > 0) {
                 
-              
-
-                // No se sube la imagen pero actualiza los demás campos
+                 //validamos que ningun campo este vacio
                 if ($datosController['titulo'] == "" ||  $datosController['contenido'] == "") 
                 {
                     // obtenemos la url amigable y capturamos el id del articulo
                     $idArticulo = explode("/", $_SERVER['REQUEST_URI']);
-
                     // var_dump($idArticulo);
                     if (isset($idArticulo[3]) && is_numeric($idArticulo[3])) {
-
+                        //si los campos vienen vacio retornamos con un mensaje de error
                         header("location:".RUTA_BACKEND."editarArticulo/$idArticulo[3]/error");
                     }                   
 
-                } else {
-
+                } 
+                else 
+                {
+                  // No se sube la imagen pero actualiza los demás campos
                     $datosController['imagen'] = "";
 
                     $respuesta = ArticulosModels::actualizarArticulosModel($datosController, "articulo");
