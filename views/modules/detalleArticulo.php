@@ -14,7 +14,8 @@
     INICIA EL CONTENEDOR HERO
     ---------------------------------- -->
 
-     <div class="hero-internas" style="background-image: url('<?=$respuesta->imagen?>');">
+     <div class="hero-internas" style="background: linear-gradient(to top, rgba(41, 2, 63, 0.2), 
+  rgba(41, 2, 63, 0.8)), url('<?=$respuesta->imagen?>') no-repeat center;" width="1110">
          <header class="header contenedor" id="header">
         <!-- ---------------------------------
         INICIA MENU
@@ -31,11 +32,13 @@
         INICIA SECCION PRINCIPAL
     ---------------------------------- -->
 
-<main class="container ml-1 mr-1">
-
+<main class="container-interna ml-1 mr-1">
+<h1><?php echo $respuesta->titulo; ?></h1>
 <div class="row">
-    <div class="col-12">
-       
+    <div class="col-8">
+       <p>
+           <?php echo $respuesta->contenido; ?>
+       </p>
     </div>
 </div>
 
