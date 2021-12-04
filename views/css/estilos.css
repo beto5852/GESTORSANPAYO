@@ -204,6 +204,11 @@ img {
   z-index: 100;
 }
 
+.hero-internas {
+  height: 300px;
+  background-size: cover;
+}
+
 /* menu */
 
 /* nav {

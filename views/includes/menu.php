@@ -2,7 +2,7 @@
              <nav class="navbar">
                  <div class="logo nav-logo">
                      <a href=" <?php echo RUTA_FRONTEND; ?> ">
-                         <img src="views/assets/logo.svg" alt="Logo san Payo tour operadora">
+                         <img src="<?=RUTA_FRONTEND?>views/assets/logo.svg" alt="Logo san Payo tour operadora">
                      </a>
                  </div>
                  <ul class="nav-menu">

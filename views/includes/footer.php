@@ -7,7 +7,7 @@ INICIA EL PIE
 <footer id="footer" class="footer">
     <div class="contenedor">
         <div class="nav-footer">
-            <img src="views/assets/logo.svg" alt="" class="img-fluid">
+            <img src="<?=RUTA_FRONTEND?>views/assets/logo.svg" alt="" class="img-fluid">
             <nav class="menu text">
                 <a href="#">Eventos</a>
                 <a href="#">Comida</a>
